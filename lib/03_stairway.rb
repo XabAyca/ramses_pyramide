@@ -5,7 +5,8 @@ def start_game
   puts "5, 6 tu montes d'un niveau"
   puts "1, tu descends d'un niveau"
   puts "2, 3, 4 rien ne se passe"
-  return start=0
+  start=0
+  game(start)
 end
 
 def game(start)
@@ -17,24 +18,25 @@ def game(start)
     print "> "
     gets.chomp
     play= 1+rand(6)
-  end
-  return play
+    puts play 
+    end
+  level_up_down(play, start)
 end
 
-def level_up_down(play)
+def level_up_down(play, start)
   if play==1 && start!=0
-    play -= 1
+    start -= 1
     puts "Vous avez perdu un niveau :"
     puts " Niveau actuel #{start} !"
-    game
-  elsif
-    play>=5
+    game(start)
+  elsif play>=5
+    start +=1
     puts "Vous avez gagnez un niveau :"
     puts " Niveau actuel #{start} !"
-    game
+    game(start)
   else
-    puts "Vous restez à votre place"
-    game
+    puts "#{start}, vous restez à votre place"
+    game(start)
   end 
 end
 
@@ -48,12 +50,13 @@ def victory
   else
     puts "Connard !!!"
   end
+  return 
 end
  
 def perform
   start=start_game
-  play=game
-  level_up_down(play)
+  play=game(start)
+  level_up_down(play, start)
 end  
 
-perform
+victory
